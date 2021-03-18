@@ -1,0 +1,23 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define">
+  <st:documentation>
+  Create left indent depending on div or table based layout.
+
+  <st:attribute name="cssClass">
+    CSS classes to add to the div.
+  </st:attribute>
+  </st:documentation>
+
+  <j:choose>
+    <j:when test="${divBasedFormLayout}">
+      <div class="indent-left ${attrs.cssClass}">
+        <d:invokeBody/>
+      </div>
+    </j:when>
+    <j:otherwise>
+      <div class="${attrs.cssClass}">
+        <d:invokeBody/>
+      </div>
+    </j:otherwise>
+  </j:choose>
+</j:jelly>

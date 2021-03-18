@@ -1,6 +1,20 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:l="/lib/layout">
-<l:css src="/plugin/performance/css/table.css"/>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:jm="/hudson/plugins/performance/tags">
+<style type="text/css">
+  div.indent-left {
+    margin-left: 3em;
+  }
+  div.table {
+    display: table;
+  }
+  div.table div.trow {
+    display: table-row;
+  }
+  div.trow div.tcell {
+    display: table-cell;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+  }
+</style>
   <f:entry title="${%Source files}" field="sourceDataFiles">
     <f:textbox />
   </f:entry>
@@ -14,22 +28,22 @@
   </f:entry>
 
   <f:entry title="Select evaluation mode" field="modeEvaluation">
-    <div class="indent-left">
+    <jm:indentWrapper>
       <f:booleanRadio name="modeEvaluation"  false="Standard Mode" true="Expert Mode" />
-    </div>
+    </jm:indentWrapper>
   </f:entry> 
 
-  <div class="indent-left">
+  <jm:indentWrapper>
     <f:entry>
-    <p><b>Standard Mode</b></p>
     <div style="border-width:1px;border-style:solid;padding:1em;">
+      <p><b>Standard Mode</b></p>
       <f:entry title="Select mode:   ">
         <f:booleanRadio name="modeOfThreshold" field="modeOfThreshold" true="Relative Threshold" false="Error Threshold" />
       </f:entry>
 
       <f:block>
         <f:entry title="Use Error thresholds on single build:   ">
-          <div class="table indent-left">
+          <jm:indentWrapper cssClass="table">
             <div class="tr trow">
               <div class="tcell"><label>${%Unstable}</label></div>
               <div class="tcell"><f:textbox field="errorUnstableThreshold" default="-1"/></div>
@@ -38,19 +52,19 @@
               <div class="tcell"><label>${%Failed}</label></div>
               <div class="tcell"><f:textbox field="errorFailedThreshold" default="-1"/></div>
             </div>
-          </div>
+          </jm:indentWrapper>
         </f:entry>
 
         <f:advanced>
           <f:entry title="${%Average response time threshold}" field="errorUnstableResponseTimeThreshold">
-            <div class="indent-left">
+            <jm:indentWrapper>
               <f:textarea style="height:100px;"/>
-            </div>
+            </jm:indentWrapper>
           </f:entry>
         </f:advanced>
 
         <f:entry title="Use Relative thresholds for build comparison:   ">
-          <div class="indent-left">
+          <jm:indentWrapper>
             <div class="table">
               <div class="trow">
                 <div class="tcell" width="25%"><label> </label></div>
@@ -88,17 +102,17 @@
                 </div>
               </div>
             </div>
-          </div>
+          </jm:indentWrapper>
         </f:entry>
       </f:block>
     </div>
   </f:entry>
-  </div>
+  </jm:indentWrapper>
 
-  <div class="indent-left">
+  <jm:indentWrapper>
     <f:entry>
-    <p><b>Expert Mode</b></p>
     <div style="border-width:1px;border-style:solid;padding:1em;">
+      <p><b>Expert Mode</b></p>
       <f:entry title="Constraint settings">
         <div><f:checkbox name="ignoreFailedBuilds" title="Ignore Failed Builds"  checked="${instance.isIgnoreFailedBuilds()}"/></div>
         <div><f:checkbox name="ignoreUnstableBuilds" title="Ignore Unstable Builds" field="ignoreUnstableBuilds" checked="${instance.isIgnoreUnstableBuilds()}"/></div>
@@ -117,7 +131,7 @@
       </f:entry>
     </div>
   </f:entry>
-  </div>
+  </jm:indentWrapper>
 
   <f:advanced>
     <f:entry field="graphType" name="graphType" title="Select graphed metric">
